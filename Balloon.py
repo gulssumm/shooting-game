@@ -12,7 +12,7 @@ class Balloon(pygame.sprite.Sprite):
         self.rect.y = 600  # Start at the bottom of the screen
 
     def update(self):
-        self.rect.y -= 5
+        self.rect.y -= 1
         if self.rect.bottom < 0:
             self.kill()
 

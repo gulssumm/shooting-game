@@ -10,7 +10,7 @@ class Bullet(pygame.sprite.Sprite):
         self.rect.top = y
 
     def update(self):
-        self.rect.y -= 10
+        self.rect.y -= 5
         if self.rect.bottom < 0:
             self.kill()
 
