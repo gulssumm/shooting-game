@@ -26,11 +26,30 @@ pygame.time.set_timer(SPAWN_BALLOON, 500)
 # Instantiate Shooter
 shooter = Shooter(screen_width, screen_height)
 
-# Default score
+# Default values
 score = 0
+level = 0
 
 # Set up the font object
 font = pygame.font.SysFont("comicsansms", 20)
+message_font = pygame.font.SysFont("comicsansms", 70)
+
+
+def reset_game():
+    global score, balloons
+    score = 0
+    balloons.empty()  # Remove all balloons
+    Mechanism.bullets.empty()  # Remove all bullets
+
+    # Draw the level-up message
+    message = message_font.render("Level is up !!!", True, (88, 57, 39))
+    screen.blit(message, (300, 250))  # Center the message on the screen
+    pygame.display.flip()  # Update the display to show the message
+
+    # Wait for a few seconds before returning to the menu
+    pygame.time.delay(3000)
+    main_menu(screen)  # Call the main menu function
+
 
 # Game loop
 while True:
@@ -57,14 +76,24 @@ while True:
         for balloon in collisions:
             score += 1
 
+    # Check if score has reached 10
+    if score == 2:
+        level += 1
+        reset_game()
+
     # Draw everything
     # screen.fill((135, 206, 235))
     screen.blit(background, (0, 0))  # Draw the background image
     balloons.draw(screen)
     Mechanism.bullets.draw(screen)
     shooter.draw(screen)
+
     # Draw the score to the screen
     score_text = font.render(f'Score: {score}', True, (255, 255, 255))
     screen.blit(score_text, (900, 5))
+
+    # Draw the level to the screen
+    level_text = font.render(f'Level: {level}', True, (255, 255, 255))
+    screen.blit(level_text, (900, 25))
 
     pygame.display.flip()
