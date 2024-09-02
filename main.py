@@ -1,9 +1,10 @@
 import pygame
 import sys
-from Balloon import Balloon, balloons, SPAWN_BALLOON
+from Balloon import balloons, Balloon, SPAWN_BALLOON
 from Shooter import Shooter
 import Mechanism    # Assuming Mechanism contains bullet-related logic
 from menu import main_menu
+from level_up_2 import level2_game
 
 # Initialize Pygame (this must be done before any Pygame functions are used)
 pygame.init()
@@ -28,27 +29,52 @@ shooter = Shooter(screen_width, screen_height)
 
 # Default values
 score = 0
-level = 0
+level = 1
+global score
+global level
 
 # Set up the font object
 font = pygame.font.SysFont("comicsansms", 20)
 message_font = pygame.font.SysFont("comicsansms", 70)
 
 
-def reset_game():
+def level_up_screen(level):
+    screen.fill((95, 52, 18))  # chocolate brown
+
+    # Display "Level Up" message
+    level_up_text = font.render(f"Level {level}!", True, (255, 255, 255))
+    sub_text = font.render("Press any key to continue...", True, (255, 255, 255))
+
+    screen.blit(level_up_text, (screen.get_width() // 2 - level_up_text.get_width() // 2,
+                                screen.get_height() // 2 - level_up_text.get_height() // 2 - 20))
+    screen.blit(sub_text, (screen.get_width() // 2 - sub_text.get_width() // 2,
+                           screen.get_height() // 2 + sub_text.get_height()))
+
+    pygame.display.flip()
+
+    waiting = True
+    while waiting:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.KEYDOWN or event.type == pygame.MOUSEBUTTONDOWN:
+                waiting = False
+
+    # Add a short delay before showing the menu
+    pygame.time.delay(1000)  # 1000 milliseconds (0.5 seconds) delay
+
+
+def reset_game(level):
     global score, balloons
     score = 0
     balloons.empty()  # Remove all balloons
     Mechanism.bullets.empty()  # Remove all bullets
 
-    # Draw the level-up message
-    message = message_font.render("Level is up !!!", True, (88, 57, 39))
-    screen.blit(message, (300, 250))  # Center the message on the screen
-    pygame.display.flip()  # Update the display to show the message
-
-    # Wait for a few seconds before returning to the menu
-    pygame.time.delay(3000)
+    level_up_screen(level)
     main_menu(screen)  # Call the main menu function
+    if level == 2:
+        level2_game(screen)
 
 
 # Game loop
@@ -79,7 +105,7 @@ while True:
     # Check if score has reached 10
     if score == 2:
         level += 1
-        reset_game()
+        reset_game(level)
 
     # Draw everything
     # screen.fill((135, 206, 235))
