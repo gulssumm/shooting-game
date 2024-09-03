@@ -43,8 +43,8 @@ def main_menu(screen):
                     sys.exit()
 
         # Draw the menu
-        paper_background = pygame.image.load("C:/Users/21180/PycharmProjects/balloon_game/images/bg.png").convert()
-        screen.blit(paper_background, (0, 0))  # Draw the background image
+        menu_background = pygame.image.load("C:/Users/21180/PycharmProjects/balloon_game/images/bg.png").convert()
+        screen.blit(menu_background, (0, 0))  # Draw the background image
 
         # Draw buttons with hover effect
         draw_button(screen, start_button_text, font, button_color, start_button_rect,

@@ -30,8 +30,6 @@ shooter = Shooter(screen_width, screen_height)
 # Default values
 score = 0
 level = 1
-global score
-global level
 
 # Set up the font object
 font = pygame.font.SysFont("comicsansms", 20)
@@ -74,7 +72,7 @@ def reset_game(level):
     level_up_screen(level)
     main_menu(screen)  # Call the main menu function
     if level == 2:
-        level2_game(screen)
+        level2_game(score, level, font, reset_game)
 
 
 # Game loop

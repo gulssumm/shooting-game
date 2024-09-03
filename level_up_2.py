@@ -5,7 +5,7 @@ import Mechanism
 from Shooter import Shooter  # Import Shooter class
 
 
-def level2_game(screen):
+def level2_game(score, level, font,reset_game):
     # Set up the game window
     screen_width = 1000
     screen_height = 563
@@ -27,6 +27,7 @@ def level2_game(screen):
             if event.type == SPAWN_DROP:
                 drop = DropClass(screen_width)  # Create new Drop
                 drops.add(drop)
+                print("drop spawned")
             if event.type == pygame.MOUSEBUTTONDOWN:
                 Mechanism.shoot(shooter)   # Use Mechanism to shoot
 
@@ -42,7 +43,7 @@ def level2_game(screen):
         # Check for collisions
         collisions = pygame.sprite.groupcollide(drops, Mechanism.bullets, True, True)
         if collisions:
-            for balloon in collisions:
+            for drop in collisions:
                 score += 1
 
         # Check if score has reached 10
