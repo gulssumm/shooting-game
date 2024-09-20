@@ -5,6 +5,7 @@ from Shooter import Shooter
 import Mechanism    # Assuming Mechanism contains bullet-related logic
 from menu import main_menu
 from level_up_2 import level2_game
+from level_up_3 import level3_game
 
 # Initialize Pygame (this must be done before any Pygame functions are used)
 pygame.init()
@@ -73,6 +74,8 @@ def reset_game(level):
     main_menu(screen)  # Call the main menu function
     if level == 2:
         level2_game(score, level, font, reset_game)
+    if level == 3:
+        level3_game(score, level, font, reset_game)
 
 
 # Game loop

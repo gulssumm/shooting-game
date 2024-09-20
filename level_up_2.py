@@ -33,11 +33,12 @@ def level2_game(score, level, font, reset_game):
                 Mechanism.shoot(shooter)   # Use Mechanism to shoot
 
         # Update and draw objects for level 2
-        drops.update()
         Mechanism.bullets.update()
+        drops.update()
         shooter.update()
 
         screen.blit(background, (0, 0))
+        Mechanism.bullets.draw(screen)
         drops.draw(screen)
         shooter.draw(screen)
 
