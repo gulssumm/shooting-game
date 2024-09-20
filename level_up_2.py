@@ -5,7 +5,7 @@ import Mechanism
 from Shooter import Shooter  # Import Shooter class
 
 
-def level2_game(score, level, font,reset_game):
+def level2_game(score, level, font, reset_game):
     # Set up the game window
     screen_width = 1000
     screen_height = 563
@@ -14,6 +14,7 @@ def level2_game(score, level, font,reset_game):
 
     # Instantiate Shooter
     shooter = Shooter(screen_width, screen_height)
+    print("Shooter Position:", shooter.rect.x, shooter.rect.y)
 
     # Load new background image for Level 2
     background = pygame.image.load("C:/Users/21180/PycharmProjects/balloon_game/images/level2_background.png").convert()
@@ -50,9 +51,6 @@ def level2_game(score, level, font,reset_game):
         if score == 2:
             level += 1
             reset_game(level)
-
-        # screen.fill((135, 206, 235))
-        screen.blit(background, (0, 0))  # Draw the background image
 
         # Draw the score to the screen
         score_text = font.render(f'Score: {score}', True, (255, 255, 255))
